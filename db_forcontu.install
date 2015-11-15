@@ -1,0 +1,95 @@
+<?php
+/**
+* @file
+* Módulo para probar bases de datos
+* Este módulo crea dos tablas en el proceso de intalación y se borran al desinstalar.
+*/
+
+/**
+ * Implements hook_install().
+ */
+function db_forcontu_install() {
+  // Populate the default {node_access} record.
+  /*
+   *db_insert('node_access')
+   *  ->fields(array(
+   *    'nid' => 0,
+   *    'gid' => 0,
+   *    'realm' => 'all',
+   *    'grant_view' => 1,
+   *    'grant_update' => 0,
+   *    'grant_delete' => 0,
+   *  ))
+   *  ->execute();
+   */
+  /* Your code here */
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function db_forcontu_uninstall() {
+  /*
+   *variable_del('upload_file_types');
+   */
+  //variable_del('');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function db_forcontu_schema() {
+  $schema['db_forcontu1'] = array(
+    'description' => 'Stores example table 1',
+    'fields' => array(
+      'sid' => array(
+        'description' => 'Campo entero autoincremental para identificar el item',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'content' => array(
+        'description' => 'Campo de texto con el contenido del item',
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'status' => array(
+        'description' => 'Status del item',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'author' => array(
+        'description' => 'Nombre del autor del item',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    'primary key' => array('sid'),
+  );
+  $schema['db_forcontu2'] = array(
+    'description' => 'Stores example table 2',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'Campo entero identificador',
+        'type' => 'int',
+        'not_null' => TRUE,
+        'default' => 0,
+      ),
+      'cid' => array(
+        'description' => 'Campo entero identificador',
+        'type' => 'int',
+        'not_null' => TRUE,
+        'default' => 0,
+      ),
+      'expiration_date' => array(
+        'description' => 'Fecha de vencimiento en formato timestamp',
+        'type' => 'int',
+        'not_null' => TRUE,
+      ),
+    ),
+    'primary key' => array('nid','cid'),
+  );
+  return $schema;
+}

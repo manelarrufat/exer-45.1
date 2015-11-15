@@ -1,0 +1,6 @@
+<?php
+/**
+* @file
+* Módulo para probar bases de datos
+* Este módulo crea dos tablas en el proceso de intalación y se borran al desinstalar.
+*/

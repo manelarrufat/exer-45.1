@@ -66,6 +66,7 @@ function db_forcontu_schema() {
         'not null' => TRUE,
         'default' => '',
       ),
+    ),
     'primary key' => array('sid'),
   );
   $schema['db_forcontu2'] = array(
@@ -89,7 +90,7 @@ function db_forcontu_schema() {
         'not_null' => TRUE,
       ),
     ),
-    'primary key' => array('nid','cid'),
+    'primary key' => array('nid', 'cid'),
   );
   return $schema;
 }

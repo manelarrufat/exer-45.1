@@ -2,4 +2,5 @@ name = DB Forcontu
 description = Module to test databases
 core = 7.x
 files[] = db_forcontu.module
+files[] = db_forcontu.install
 package = My modules

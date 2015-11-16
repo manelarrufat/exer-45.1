@@ -9,20 +9,28 @@
  * Implements hook_install().
  */
 function db_forcontu_install() {
-  // Populate the default {node_access} record.
-  /*
-   *db_insert('node_access')
-   *  ->fields(array(
-   *    'nid' => 0,
-   *    'gid' => 0,
-   *    'realm' => 'all',
-   *    'grant_view' => 1,
-   *    'grant_update' => 0,
-   *    'grant_delete' => 0,
-   *  ))
-   *  ->execute();
-   */
-  /* Your code here */
+  //Actualizamos el esquema
+  $schema['node'] = array();
+  db_forcontu_schema_alter($schema);
+  //Añadimos el campo new_field a la tabla {node}
+  db_add_field('node', 'new_field', array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 1,
+                'description' => 'Nuevo campo.')
+  );
+  //Guardamos un registro en la tabla db_forcontu1
+  $record = array(
+    'content' => 'Contenido de este campo',
+    'status' => 1,
+    'author' => 'Manel Arrufat',
+  );
+  drupal_write_record('db_forcontu1', &$record);
+  //Creamos la variable db_forcontu
+  variable_set('db_forcontu', 1);
+  //comprobamos que se ha creado la variable db_forcontu
+  dpm('db_forcontu');
 }
 
 /**
@@ -93,4 +101,18 @@ function db_forcontu_schema() {
     'primary key' => array('nid', 'cid'),
   );
   return $schema;
+}
+
+/**
+ * Implements hook_schema_alter().
+ */
+function db_forcontu_schema_alter(&$schema) {
+  // Add field to existing schema.
+  $schema['node']['fields']['new_field'] = array(
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'default' => 1,
+    'description' => 'Nuevo campo.',
+  );
 }
